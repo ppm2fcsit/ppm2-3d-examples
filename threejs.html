@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>My First Three.js APP</title>
+    </head>
+    <body>
+        <h1>My First Three.js APP</h1>
+        <!-- import Three.js -->
+        <script src="https://threejs.org/build/three.js"></script>
+        <script>
+            // สร้างตัวแปร scene เพื่อเก็บ object ที่จะแสดงผล
+            var scene = new THREE.Scene();
+            // สร้างตัวแปร camera เพื่อกำหนดตำแหน่งที่จะเห็น object ใน scene
+            var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+            // สร้างตัวแปร renderer เพื่อเก็บ object ที่จะแสดงผล
+            var renderer = new THREE.WebGLRenderer();
+            // สร้างตัวแปร light เพื่อเก็บ object ที่จะแสดงผล
+            var light = new THREE.AmbientLight( 0x404040 )
+            // กำหนดขนาดของ renderer
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            // เพิ่ม renderer ลงใน body
+            document.body.appendChild( renderer.domElement );
+            // สร้าง geometry ชื่อ geometry และกำหนดขนาดของ geometry
+            var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+            // สร้าง material ชื่อ material และกำหนดสีของ material
+            var material = new THREE.MeshPhongMaterial( { color: 0x00ff00 } );
+            // สร้าง cube ชื่อ cube โดยใช้ geometry และ material
+            var cube = new THREE.Mesh( geometry, material );
+            // เพิ่ม cube ลงใน scene
+            scene.add( cube );
+            scene.add(light)
+            // กำหนดตำแหน่งของ camera
+            camera.position.z = 5;
+            camera.position.y = 1;
+            // สร้างฟังก์ชัน animate เพื่อให้ cube หมุนตลอดเวลา
+            function animate() {
+                requestAnimationFrame( animate );
+                cube.rotation.x += 0.01;
+                cube.rotation.z += 0.01;
+                renderer.render( scene, camera );
+            }
+            animate();
+        </script>
+    </body>
+</html>
